@@ -77,6 +77,7 @@ async function sendWebhook(data) {
     console.error('❌ Webhook error:', error);
   }
 }
+
 // QR Code event
 client.on('qr', async (qr) => {
   console.log('\n📱 QR Code received! Scan with WhatsApp:');
@@ -91,7 +92,6 @@ client.on('qr', async (qr) => {
     session_id: SESSION_ID,
     qr_code: qrImageBase64
   });
-});
 });
 
 // Authenticated event
@@ -240,3 +240,8 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`🌐 HTTP Server listening on 0.0.0.0:${PORT}`);
 });
+
+// Initialize client
+client.initialize();
+
+console.log('⏳ Initializing WhatsApp client...');
