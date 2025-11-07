@@ -241,3 +241,9 @@ server.listen(PORT, '0.0.0.0', () => {
 client.initialize();
 
 console.log('⏳ Initializing WhatsApp client...');
+const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
+const qrcode = require('qrcode-terminal');
+const QRCode = require('qrcode');
+const fetch = require('node-fetch');
+const http = require('http');
+require('dotenv').config();
