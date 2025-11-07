@@ -87,11 +87,21 @@ client.on('qr', async (qr) => {
   const qrImageBase64 = await QRCode.toDataURL(qr);
   
   await updateSessionStatus(false, qrImageBase64);
-  await sendWebhook({
-    event: 'qr_code',
-    session_id: SESSION_ID,
-    qr_code: qrImageBase64
-  });
+// เดิม
+await sendWebhook({
+  event: 'qr_code',
+  session_id: SESSION_ID,
+  qr_code: qrImageBase64
+});
+
+// ใหม่
+await sendWebhook({
+  event_type: 'qr',
+  session_id: SESSION_ID,
+  data: {
+    qr: qrImageBase64
+  }
+});
 });
 
 // Authenticated event
