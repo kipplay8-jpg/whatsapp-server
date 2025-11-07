@@ -1,0 +1,21 @@
+{
+  "name": "whatsapp-webjs-server",
+  "version": "1.0.0",
+  "description": "WhatsApp Web.js server for Lovable integration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["whatsapp", "webjs", "baileys"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "whatsapp-web.js": "^1.23.0",
+    "qrcode-terminal": "^0.12.0",
+    "node-fetch": "^2.7.0",
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
