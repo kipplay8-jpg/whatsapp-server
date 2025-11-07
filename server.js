@@ -1,5 +1,6 @@
 const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
+const QRCode = require('qrcode');
 const fetch = require('node-fetch');
 const http = require('http');
 require('dotenv').config();
@@ -76,18 +77,21 @@ async function sendWebhook(data) {
     console.error('❌ Webhook error:', error);
   }
 }
-
 // QR Code event
 client.on('qr', async (qr) => {
   console.log('\n📱 QR Code received! Scan with WhatsApp:');
   qrcode.generate(qr, { small: true });
   
-  await updateSessionStatus(false, qr);
+  // Convert QR text to Base64 image for display on web
+  const qrImageBase64 = await QRCode.toDataURL(qr);
+  
+  await updateSessionStatus(false, qrImageBase64);
   await sendWebhook({
     event: 'qr_code',
     session_id: SESSION_ID,
-    qr_code: qr
+    qr_code: qrImageBase64
   });
+});
 });
 
 // Authenticated event
@@ -236,14 +240,3 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`🌐 HTTP Server listening on 0.0.0.0:${PORT}`);
 });
-
-// Initialize client
-client.initialize();
-
-console.log('⏳ Initializing WhatsApp client...');
-const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
-const qrcode = require('qrcode-terminal');
-const QRCode = require('qrcode');
-const fetch = require('node-fetch');
-const http = require('http');
-require('dotenv').config();
