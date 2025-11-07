@@ -97,20 +97,61 @@ await sendWebhook({
 // ใหม่
 await sendWebhook({
   event_type: 'qr',
+ // เดิม
+await sendWebhook({
+  event: 'authenticated',
+  session_id: SESSION_ID
+});
+
+// ใหม่
+await sendWebhook({
+  event_type: 'authenticated',
+  session_id: SESSION_ID,
+  data: {}
+});
+});
+});
+// เดิม
+await sendWebhook({
+  event: 'ready',
+  session_id: SESSION_ID,
+  phone_number: info.wid.user,
+  name: info.pushname
+});
+
+// ใหม่
+await sendWebhook({
+  event_type: 'ready',
+  session_id: SESSION_ID,
+  // เดิม
+await sendWebhook({
+  event: 'message',
+  session_id: SESSION_ID,
+  from: message.from,
+  body: message.body,
+  timestamp: message.timestamp
+});
+
+// ใหม่
+await sendWebhook({
+  event_type: 'message',
+  session_id: SESSION_ID,
+  // เดิม
+await sendWebhook({
+  event: 'disconnected',
+  session_id: SESSION_ID,
+  reason: reason
+});
+
+// ใหม่
+await sendWebhook({
+  event_type: 'disconnected',
   session_id: SESSION_ID,
   data: {
-    qr: qrImageBase64
+    reason: reason
   }
 });
 });
-
-// Authenticated event
-client.on('authenticated', async () => {
-  console.log('✅ Authentication successful!');
-  await sendWebhook({
-    event: 'authenticated',
-    session_id: SESSION_ID
-  });
 });
 
 // Ready event
